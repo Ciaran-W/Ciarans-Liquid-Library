@@ -1,0 +1,3630 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🍹 Ciaran's Liquid Library   📚</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1e;
+            color: #f5f5f7;
+        }
+
+        header {
+            background-color: #2c2c2e;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #ff3b30;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8em;
+            color: #ff3b30;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        label, select, input {
+            width: 100%;
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        input, select {
+            padding: 10px;
+            background-color: #2c2c2e;
+            color: #f5f5f7;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .cocktail {
+            background-color: #2c2c2e;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .cocktail:hover {
+            transform: scale(1.02);
+            background-color: #3a3a3c;
+        }
+
+        h2 {
+            color: #ff9f0a;
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin: 5px 0;
+            font-size: 0.95em;
+        }
+
+        .flavour-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            margin-right: 5px;
+            margin-top: 3px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+
+        .glass-tag {
+            display: inline-block;
+            background-color: #0a84ff;
+            color: #fff;
+            padding: 2px 8px;
+            margin-right: 5px;
+            margin-top: 3px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+
+        .details {
+            display: none;
+            margin-top: 10px;
+            border-top: 1px solid #3a3a3c;
+            padding-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .Sweet { background-color: #ff69b4; color: #000; }
+        .Fruity { background-color: #ffa500; color: #000; }
+        .Nutty { background-color: #8e8e93; color: #fff; }
+        .Creamy { background-color: #fffdd0; color: #000; }
+        .Coffee { background-color: #795548; color: #fff; }
+        .Citrus { background-color: #ffcc00; color: #000; }
+        .Sour { background-color: #ffeb3b; color: #000; }
+        .Floral { background-color: #c8a2c8; color: #000; }
+        .Spicy { background-color: #000000; color: #fff; }
+        .Bitter { background-color: #4b0082; color: #fff; }
+        .Minty { background-color: #00b894; color: #fff; }
+        .Smoky { background-color: #607d8b; color: #fff; }
+        .Earthy { background-color: #6d4c41; color: #fff; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🍹 Ciaran's Liquid Library   📚</h1>
+    </header>
+    <main>
+        <label for="searchInput">Search by Name:</label>
+        <input type="text" id="searchInput" onkeyup="filterCocktails()" placeholder="Type a cocktail name...">
+
+        <label for="glassFilter">Filter by Glass Type:</label>
+        <select id="glassFilter" onchange="filterCocktails()">
+            <option value="">--Select Glass--</option>
+            
+            <option value="Long">Long</option>
+            
+            <option value="Mug">Mug</option>
+            
+            <option value="Short">Short</option>
+            
+        </select>
+
+        <label for="ingredientSearch">Search Ingredients:</label>
+<input type="text" id="ingredientSearch" onkeyup="filterCocktails()" placeholder="Type to filter ingredients...">
+<br><label for="ingredientFilter">Select Ingredients (single or multiple):</label>
+        <select id="ingredientFilter" multiple size="5" onchange="filterCocktails()">
+            <option value="">--Select Ingredient--</option>
+            
+            <option value="Amaretto">Amaretto</option>
+            
+            <option value="Angostura Bitters">Angostura Bitters</option>
+            
+            <option value="Apple Juice">Apple Juice</option>
+            
+            <option value="Apple Schnapps">Apple Schnapps</option>
+            
+            <option value="Baileys">Baileys</option>
+            
+            <option value="Banana Liqueur">Banana Liqueur</option>
+            
+            <option value="Blue Curacao">Blue Curacao</option>
+            
+            <option value="Blue Raspberry Vodka">Blue Raspberry Vodka</option>
+            
+            <option value="Blueberry Liqueur">Blueberry Liqueur</option>
+            
+            <option value="Bourbon">Bourbon</option>
+            
+            <option value="Brandy">Brandy</option>
+            
+            <option value="Cachaca">Cachaca</option>
+            
+            <option value="Chambord">Chambord</option>
+            
+            <option value="Cherry Brandy">Cherry Brandy</option>
+            
+            <option value="Cherry Syrup">Cherry Syrup</option>
+            
+            <option value="Coffee">Coffee</option>
+            
+            <option value="Cointreau">Cointreau</option>
+            
+            <option value="Cranberry Juice">Cranberry Juice</option>
+            
+            <option value="Elderflower Cordial">Elderflower Cordial</option>
+            
+            <option value="Gin">Gin</option>
+            
+            <option value="Grenadine">Grenadine</option>
+            
+            <option value="Hot Chocolate">Hot Chocolate</option>
+            
+            <option value="Jack Daniels">Jack Daniels</option>
+            
+            <option value="Kahlua">Kahlua</option>
+            
+            <option value="Lemonade">Lemonade</option>
+            
+            <option value="Malibu">Malibu</option>
+            
+            <option value="Midori">Midori</option>
+            
+            <option value="Milk">Milk</option>
+            
+            <option value="Orange Juice">Orange Juice</option>
+            
+            <option value="Passion Fruit Juice">Passion Fruit Juice</option>
+            
+            <option value="Passoa">Passoa</option>
+            
+            <option value="Peach Schnapps">Peach Schnapps</option>
+            
+            <option value="Pina Colada Mix">Pina Colada Mix</option>
+            
+            <option value="Pineapple Juice">Pineapple Juice</option>
+            
+            <option value="Raspberry Liqueur">Raspberry Liqueur</option>
+            
+            <option value="Rum">Rum</option>
+            
+            <option value="Southern Comfort">Southern Comfort</option>
+            
+            <option value="Spiced Rum">Spiced Rum</option>
+            
+            <option value="Strawberry Liqueur">Strawberry Liqueur</option>
+            
+            <option value="Strawberry Puree">Strawberry Puree</option>
+            
+            <option value="Sweet & Sour">Sweet & Sour</option>
+            
+            <option value="Tequila">Tequila</option>
+            
+            <option value="Vanilla Vodka">Vanilla Vodka</option>
+            
+            <option value="Vodka">Vodka</option>
+            
+            <option value="White Cacao">White Cacao</option>
+            
+        </select>
+
+        <label for="flavourFilter">Filter by Flavour Profile:</label>
+        <select id="flavourFilter" onchange="filterCocktails()">
+            <option value="">--Select Flavour--</option>
+            
+            <option value="Coffee">Coffee</option>
+            
+            <option value="Creamy">Creamy</option>
+            
+            <option value="Floral">Floral</option>
+            
+            <option value="Fruity">Fruity</option>
+            
+            <option value="Nutty">Nutty</option>
+            
+            <option value="Sour">Sour</option>
+            
+            <option value="Spiced">Spiced</option>
+            
+            <option value="Sweet">Sweet</option>
+            
+        </select>
+
+        <div id="cocktails">
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="77 SUNSET STRIP" data-glass="Long" data-ingredients="Rum,Gin,Vodka,Cointreau,Pineapple Juice,Grenadine,Fill With Lemonade" data-flavours="Fruity, Sweet">
+                <h2>77 SUNSET STRIP</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Gin<br>1/2oz Vodka<br>1/2oz Cointreau<br>1 1/2oz Pineapple Juice<br>1/2oz Grenadine<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ADAM'S APPLE" data-glass="Long" data-ingredients="Vodka,Apple Juice" data-flavours="Fruity">
+                <h2>ADAM'S APPLE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>4oz Apple Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ALABAMA SLAMMER" data-glass="Long" data-ingredients="Vodka,Southern Comfort,Amaretto,Grenadine,Orange Juice" data-flavours="Fruity, Nutty, Sweet">
+                <h2>ALABAMA SLAMMER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Vodka<br>3/4oz Southern Comfort<br>3/4oz Amaretto<br>1/2oz Grenadine<br>3oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ALMOND CHOCOLATE" data-glass="Mug" data-ingredients="Amaretto,Fill With Hot Chocolate" data-flavours="Creamy, Nutty, Sweet">
+                <h2>ALMOND CHOCOLATE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Amaretto<br>Fill With Hot Chocolate</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ALMOND MOCHA" data-glass="Mug" data-ingredients="Amaretto,Chocolate Syrup,Fill With Coffee" data-flavours="Sweet, Creamy, Coffee">
+                <h2>ALMOND MOCHA</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Amaretto<br>1/2oz Chocolate Syrup<br>Fill With Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="AMARETTO SOURS" data-glass="Short" data-ingredients="Amaretto,Sweet & Sour,Orange Juice,Angostura Bitters" data-flavours="Fruity, Sour, Nutty">
+                <h2>AMARETTO SOURS</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Amaretto<br>2oz Sweet & Sour<br>1oz Orange Juice<br>Dash Angostura Bitters</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ANGEL'S TIP" data-glass="Short" data-ingredients="White Cacao,Milk" data-flavours="Creamy">
+                <h2>ANGEL'S TIP</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz White Cacao<br>1oz Milk</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="APPLE PASSION" data-glass="Long" data-ingredients="Blue Curacao,Passion Fruit Juice,Apple Juice,Vodka,Lime Juice" data-flavours="Fruity, Sour">
+                <h2>APPLE PASSION</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Blue Curacao<br>3oz Passion Fruit Juice<br>3oz Apple Juice<br>1oz Vodka<br>Dash Lime Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="APPLETINI" data-glass="Short" data-ingredients="Vodka,Apple Schnapps,Apple Juice" data-flavours="Fruity">
+                <h2>APPLETINI</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>1/2oz Apple Schnapps<br>1oz Apple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BAHAMA MAMA" data-glass="Long" data-ingredients="Rum,Malibu,Banana Liqueur,Grenadine,Orange Juice,Pineapple Juice" data-flavours="Fruity, Sweet">
+                <h2>BAHAMA MAMA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Malibu<br>1/2oz Banana Liqueur<br>1/2oz Grenadine<br>1 1/2oz Orange Juice<br>1 1/2oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BAILEYS COMET" data-glass="Short" data-ingredients="Baileys,Amaretto,Milk" data-flavours="Creamy, Nutty">
+                <h2>BAILEYS COMET</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Baileys<br>3/4oz Amaretto<br>1oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BALLET RUSSE" data-glass="Long" data-ingredients="Vodka,Chambord,Sweet & Sour" data-flavours="Sour">
+                <h2>BALLET RUSSE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1/2oz Chambord<br>3oz Sweet & Sour</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BANANA BANSHEE" data-glass="Short" data-ingredients="Banana Liqueur,White Cacao,Milk" data-flavours="Creamy, Fruity">
+                <h2>BANANA BANSHEE</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Banana Liqueur<br>3/4oz White Cacao<br>1oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BANANA SPLIT" data-glass="Long" data-ingredients="Strawberry Puree,Banana Liqueur,Strawberry Liqueur,White Cacao,Milk" data-flavours="Fruity, Creamy">
+                <h2>BANANA SPLIT</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Strawberry Puree<br>3/4oz Banana Liqueur<br>3/4oz Strawberry Liqueur<br>3/4oz White Cacao<br>1 1/2oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BARBADOS ICED TEA" data-glass="Long" data-ingredients="Vodka,Cointreau,Rum,Malibu,Sweet & Sour,Fill With Pineapple Juice" data-flavours="Fruity, Sour">
+                <h2>BARBADOS ICED TEA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Vodka<br>1/2oz Cointreau<br>1/2oz Rum<br>1/2oz Malibu<br>2oz Sweet & Sour<br>Fill With Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BAY BREEZE" data-glass="Long" data-ingredients="Vodka,Cranberry Juice,Pineapple Juice" data-flavours="Fruity">
+                <h2>BAY BREEZE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>2oz Cranberry Juice<br>2oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BETWEEN THE SHEETS" data-glass="Short" data-ingredients="Rum,Brandy,Cointreau,Lime Mix" data-flavours="Sour">
+                <h2>BETWEEN THE SHEETS</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Rum<br>3/4oz Brandy<br>3/4oz Cointreau<br>3/4oz Lime Mix</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BLACK FOREST" data-glass="Mug" data-ingredients="Chambord,White Cacao,Vodka,Hot Chocolate" data-flavours="Creamy, Sweet">
+                <h2>BLACK FOREST</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Chambord<br>1/2oz White Cacao<br>1/2oz Vodka<br>Hot Chocolate</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BLACK RUSSIAN" data-glass="Short" data-ingredients="Vodka,Kahlua,Fill With Coke" data-flavours="Coffee">
+                <h2>BLACK RUSSIAN</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>3/4oz Kahlua<br>Fill With Coke</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BLUE MONDAY" data-glass="Long" data-ingredients="Rum,Blue Curacao,Orange Juice,Milk" data-flavours="Fruity, Creamy">
+                <h2>BLUE MONDAY</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Blue Curacao<br>1 1/2oz Orange Juice<br>1 1/2oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BLUE PASSION" data-glass="Long" data-ingredients="Rum,Blue Curacao,Sweet & Sour" data-flavours="Sour">
+                <h2>BLUE PASSION</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Blue Curacao<br>3oz Sweet & Sour</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BLUE RASPBERRY FIZZ" data-glass="Long" data-ingredients="Blue Raspberry Vodka,Sweet & Sour,Fill With Lemonade" data-flavours="Fruity, Sour, Sweet">
+                <h2>BLUE RASPBERRY FIZZ</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Blue Raspberry Vodka<br>1oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BOLSHOI PUNCH" data-glass="Long" data-ingredients="Vodka,Rum,Chambord,Sweet & Sour" data-flavours="Sour">
+                <h2>BOLSHOI PUNCH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1/4oz Rum<br>1/4oz Chambord<br>3oz Sweet & Sour</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BONE CRUSHER" data-glass="Long" data-ingredients="Rum,Gin,Cointreau,Sweet & Sour,Cranberry Juice,Lemonade,With" data-flavours="Fruity, Sour, Sweet">
+                <h2>BONE CRUSHER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Gin<br>1/2oz Cointreau<br>2oz Sweet & Sour<br>1oz Cranberry Juice<br>1oz Lemonade<br>With</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BOSTON TEA PARTY" data-glass="Long" data-ingredients="Rum,Gin,Vodka,Kahlua,Cointreau,Sweet & Sour,Fill With Coke" data-flavours="Sour, Coffee">
+                <h2>BOSTON TEA PARTY</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Gin<br>1/2oz Vodka<br>1/4oz Kahlua<br>1/4oz Cointreau<br>2oz Sweet & Sour<br>Fill With Coke</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BRAMBLE" data-glass="Short" data-ingredients="Gin,Lemon Juice,Simple Syrup,Blueberry Liqueur" data-flavours="Fruity, Sour, Sweet">
+                <h2>BRAMBLE</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Gin<br>3/4oz Lemon Juice<br>1/2oz Simple Syrup<br>1/2oz Blueberry Liqueur</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BRANDY ALEXANDER" data-glass="Short" data-ingredients="Brandy,White Cacao,Milk" data-flavours="Creamy">
+                <h2>BRANDY ALEXANDER</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Brandy<br>3/4oz White Cacao<br>1oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BRANDY CHOCOLATE ALEXANDER" data-glass="Mug" data-ingredients="Brandy,White Cacao,Hot Chocolate" data-flavours="Creamy, Sweet">
+                <h2>BRANDY CHOCOLATE ALEXANDER</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Brandy<br>3/4oz White Cacao<br>Hot Chocolate</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BRANDY MILK PUNCH" data-glass="Long" data-ingredients="Brandy,White Cacao,Simple Syrup,Milk,Vanilla Vodka" data-flavours="Creamy, Sweet">
+                <h2>BRANDY MILK PUNCH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Brandy<br>1oz White Cacao<br>1/2oz Simple Syrup<br>4oz Milk<br>1/2oz Vanilla Vodka</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="BRAVE BULL" data-glass="Short" data-ingredients="Tequila,Kahlua" data-flavours="Coffee">
+                <h2>BRAVE BULL</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Tequila<br>3/4oz Kahlua</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CACHACA FIZZ" data-glass="Long" data-ingredients="Cachaca,Lime Mix,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>CACHACA FIZZ</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>2oz Cachaca<br>1 3/4oz Lime Mix<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAFE GATES" data-glass="Mug" data-ingredients="Kahlua,White Cacao,Cointreau,Coffee" data-flavours="Coffee, Creamy">
+                <h2>CAFE GATES</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Kahlua<br>1/2oz White Cacao<br>1/2oz Cointreau<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAFE HENRY III" data-glass="Mug" data-ingredients="Vanilla Vodka,Kahlua,Brandy,Cointreau,Coffee" data-flavours="Coffee, Sweet">
+                <h2>CAFE HENRY III</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Vanilla Vodka<br>1/4oz Kahlua<br>1/4oz Brandy<br>1/2oz Cointreau<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAFE OSCAR" data-glass="Mug" data-ingredients="Kahlua,Amaretto,Coffee" data-flavours="Coffee, Nutty">
+                <h2>CAFE OSCAR</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Kahlua<br>3/4oz Amaretto<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAFE REESE" data-glass="Mug" data-ingredients="Kahlua,Baileys,Amaretto,Coffee" data-flavours="Coffee, Creamy, Nutty">
+                <h2>CAFE REESE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Kahlua<br>1/2oz Baileys<br>1/4oz Amaretto<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAFE REGGAE" data-glass="Mug" data-ingredients="White Cacao,Rum,Kahlua,Coffee" data-flavours="Coffee, Creamy">
+                <h2>CAFE REGGAE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz White Cacao<br>1/2oz Rum<br>1/2oz Kahlua<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAFE ROYALE" data-glass="Mug" data-ingredients="Brandy,3 Bar Spoons Of White Sugar,Coffee" data-flavours="Coffee, Sweet">
+                <h2>CAFE ROYALE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Brandy<br>3 Bar Spoons of White Sugar<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAFE TOLEDO" data-glass="Mug" data-ingredients="Kahlua,Baileys,Chocolate Syrup,Coffee" data-flavours="Creamy, Coffee, Sweet">
+                <h2>CAFE TOLEDO</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Kahlua<br>3/4oz Baileys<br>1/2oz Chocolate Syrup<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAIPIRINHA" data-glass="Short" data-ingredients="3 Lime Wedges,3 Bar Spoons Of White Or Brown Sugar,Cachaca" data-flavours="Sweet">
+                <h2>CAIPIRINHA</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3 Lime Wedges<br>3 Bar Spoons of White or Brown Sugar<br>3oz Cachaca</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAIPIROSKA" data-glass="Short" data-ingredients="3 Lime Wedges,3 Bar Spoons Of White Or Brown Sugar,Vodka" data-flavours="Sweet">
+                <h2>CAIPIROSKA</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3 Lime Wedges<br>3 Bar Spoons of White or Brown Sugar<br>3oz Vodka</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CANADA GOOSE" data-glass="Short" data-ingredients="Vodka,Cherry Brandy,Amaretto,Lemon Juice,Lime Juice,Cranberry Juice,3 Bar Spoons Of Maple Syrup" data-flavours="Fruity, Sour, Nutty">
+                <h2>CANADA GOOSE</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1oz Vodka<br>1/4oz Cherry Brandy<br>1/4oz Amaretto<br>1/4oz Lemon Juice<br>1/4oz Lime Juice<br>1oz Cranberry Juice<br>3 Bar Spoons of Maple Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CAPE CODDER" data-glass="Long" data-ingredients="Vodka,Cranberry Juice,Fill With Lemonade" data-flavours="Fruity, Sweet">
+                <h2>CAPE CODDER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>3oz Cranberry Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CARIBBEAN ICED TEA" data-glass="Long" data-ingredients="Rum,Vodka,Cointreau,Sweet & Sour,Lemon Juice,Fill With Coke" data-flavours="Sour">
+                <h2>CARIBBEAN ICED TEA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Rum<br>1/2oz Vodka<br>1/2oz Cointreau<br>2oz Sweet & Sour<br>Dash Lemon Juice<br>Fill With Coke</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CHEE CHEE" data-glass="Long" data-ingredients="Vodka,Pina Colada Mix" data-flavours="Sweet">
+                <h2>CHEE CHEE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>4oz Pina Colada Mix</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CHERRY FRUTINI" data-glass="Short" data-ingredients="Vodka,Cherry Syrup,Sweet & Sour" data-flavours="Fruity, Sour, Sweet">
+                <h2>CHERRY FRUTINI</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>1oz Cherry Syrup<br>3/4oz Sweet & Sour</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CHERRY GIN RICKY" data-glass="Long" data-ingredients="Gin,Cherry Syrup,Lime Juice,Fill With Lemonade" data-flavours="Sweet, Fruity, Sour">
+                <h2>CHERRY GIN RICKY</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Gin<br>3/4oz Cherry Syrup<br>1/2oz Lime Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CHERRY RUM FIZZ" data-glass="Long" data-ingredients="Rum,Cherry Brandy,Cherry Syrup,Grenadine,Sweet & Sour,Fill With Lemonade" data-flavours="Sweet, Fruity, Sour">
+                <h2>CHERRY RUM FIZZ</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Cherry Brandy<br>1/2oz Cherry Syrup<br>Dash Grenadine<br>2oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CHERRY STAG" data-glass="Short" data-ingredients="Bourbon,Amaretto,Cherry Brandy,Lemon Juice,Cherry Syrup" data-flavours="Fruity, Sour, Nutty">
+                <h2>CHERRY STAG</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Bourbon<br>3/4oz Amaretto<br>3/4oz Cherry Brandy<br>1/2oz Lemon Juice<br>Dash Cherry Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CHIMAYO COCKTAIL" data-glass="Long" data-ingredients="Tequila,Chambord,Apple Juice,Lemon Juice" data-flavours="Fruity, Sour">
+                <h2>CHIMAYO COCKTAIL</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Tequila<br>1/4oz Chambord<br>4oz Apple Juice<br>Dash Lemon Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CHOCOLATE COVERED CHERRY" data-glass="Mug" data-ingredients="Cherry Brandy,Cherry Syrup,Hot Chocolate" data-flavours="Sweet, Fruity, Creamy">
+                <h2>CHOCOLATE COVERED CHERRY</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Cherry Brandy<br>Dash Cherry Syrup<br>Hot Chocolate</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CITRUS RUM COOLER" data-glass="Long" data-ingredients="Rum,Cointreau,Orange Juice,Lime Mix,Simple Syrup,Lemon Juice,Lime Juice,Fill With Lemonade" data-flavours="Sour, Sweet, Fruity">
+                <h2>CITRUS RUM COOLER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Cointreau<br>1oz Orange Juice<br>1/2oz Lime Mix<br>1/2oz Simple Syrup<br>Dash Lemon Juice<br>Dash Lime Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="COLORADO BULLDOG" data-glass="Long" data-ingredients="Vodka,Kahlua,Milk,Fill With Coke" data-flavours="Creamy, Coffee">
+                <h2>COLORADO BULLDOG</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1oz Kahlua<br>2oz Milk<br>Fill With Coke</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="COOL BREEZE" data-glass="Long" data-ingredients="Tequila,Midori,Cranberry Juice,Lime Juice" data-flavours="Fruity, Sour">
+                <h2>COOL BREEZE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Tequila<br>1/2oz Midori<br>3oz Cranberry Juice<br>Dash Lime Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="COSMOPOLITAN" data-glass="Short" data-ingredients="Vodka,Cointreau,Cranberry Juice,Lime Mix" data-flavours="Fruity, Sour">
+                <h2>COSMOPOLITAN</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>1/2oz Cointreau<br>1oz Cranberry Juice<br>1/2oz Lime Mix</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CRANBERRY COOLER" data-glass="Long" data-ingredients="Amaretto,Cranberry Juice,Orange Juice" data-flavours="Fruity, Nutty">
+                <h2>CRANBERRY COOLER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Amaretto<br>3oz Cranberry Juice<br>1oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="CUBA LIBRE" data-glass="Short" data-ingredients="Rum,Lime Juice,Fill With Coke" data-flavours="Sour">
+                <h2>CUBA LIBRE</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>Dash Lime Juice<br>Fill With Coke</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="DIRTY MOTHER" data-glass="Long" data-ingredients="Vodka,Kahlua,Milk" data-flavours="Creamy, Coffee">
+                <h2>DIRTY MOTHER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1oz Kahlua<br>3oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="DOWNHILL RACER" data-glass="Long" data-ingredients="Rum,Amaretto,Pineapple Juice" data-flavours="Fruity, Nutty">
+                <h2>DOWNHILL RACER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Amaretto<br>3oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="DUSK TILL DAWN" data-glass="Long" data-ingredients="Grenadine,Apple Schnapps,Passoa,Vodka,Orange Juice" data-flavours="Fruity, Sweet">
+                <h2>DUSK TILL DAWN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Grenadine <br>3/4oz Apple Schnapps <br>1 1/2oz Passoa <br>1oz Vodka <br>1 1/2oz Orange Juice </p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="DYEVITCHKA" data-glass="Long" data-ingredients="Vodka,Cointreau,Sweet & Sour,Pineapple Juice" data-flavours="Fruity, Sour">
+                <h2>DYEVITCHKA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1/2oz Cointreau<br>2 1/2oz Sweet & Sour<br>1/2oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ELECTRIC LEMONADE" data-glass="Long" data-ingredients="Vodka,Blue Curacao,Sweet & Sour,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>ELECTRIC LEMONADE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1/2oz Blue Curacao<br>2oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ENGLISH GARDEN" data-glass="Long" data-ingredients="Gin,Elderflower Cordial,Apple Juice,Cranberry Juice,Lime Juice" data-flavours="Fruity, Sour, Floral">
+                <h2>ENGLISH GARDEN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Floral">Floral</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Gin<br>1/2oz Elderflower Cordial<br>2oz Apple Juice<br>2oz Cranberry Juice<br>Dash Lime Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="FIZZ POP" data-glass="Long" data-ingredients="Amaretto,Banana Liqueur,Chambord,Cranberry Juice,Sweet & Sour,Lime Juice" data-flavours="Fruity, Sour, Nutty">
+                <h2>FIZZ POP</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Amaretto<br>3/4oz Banana Liqueur<br>3/4oz Chambord<br>1 1/2oz Cranberry Juice<br>1 1/2oz Sweet & Sour<br>Dash Lime Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="FLOWER BURST" data-glass="Long" data-ingredients="Gin,Elderflower Cordial,Lime Juice,Cranberry Juice,Fill With Lemonade" data-flavours="Fruity, Sour, Floral">
+                <h2>FLOWER BURST</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Floral">Floral</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Gin<br>3/4oz Elderflower Cordial<br>3/4oz Lime Juice<br>2oz Cranberry Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="FOXY LADY" data-glass="Short" data-ingredients="Gin,Strawberry Liqueur,Sweet & Sour" data-flavours="Fruity, Sour">
+                <h2>FOXY LADY</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Gin <br>1oz Strawberry Liqueur <br>1 1/2oz Sweet & Sour </p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="FRENCH MARTINI" data-glass="Short" data-ingredients="Vodka,Chambord,Pineapple Juice" data-flavours="Fruity">
+                <h2>FRENCH MARTINI</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>1/2oz Chambord<br>1oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="FUZZY NAVEL" data-glass="Long" data-ingredients="Peach Schnapps,Orange Juice,Fill With Lemonade" data-flavours="Fruity, Sweet">
+                <h2>FUZZY NAVEL</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Peach Schnapps<br>3oz Orange Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="GEORGIA PEACH" data-glass="Long" data-ingredients="Rum,Peach Schnapps,Cranberry Juice" data-flavours="Fruity">
+                <h2>GEORGIA PEACH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1oz Peach Schnapps<br>3oz Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="GODFATHER" data-glass="Short" data-ingredients="Bourbon,Amaretto" data-flavours="Nutty">
+                <h2>GODFATHER</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Bourbon<br>3/4oz Amaretto</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="GODMOTHER" data-glass="Short" data-ingredients="Vodka,Amaretto" data-flavours="Nutty">
+                <h2>GODMOTHER</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>3/4oz Amaretto</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="GOOMBAY SMASH" data-glass="Long" data-ingredients="Spiced Rum,Malibu,Cointreau,Pineapple Juice,Orange Juice" data-flavours="Fruity, Spiced">
+                <h2>GOOMBAY SMASH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Spiced Rum<br>1oz Malibu<br>1/2oz Cointreau<br>2oz Pineapple Juice<br>1oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="GRATEFUL DEAD" data-glass="Long" data-ingredients="Rum,Gin,Vodka,Cointreau,Sweet & Sour,Chambord" data-flavours="Sour">
+                <h2>GRATEFUL DEAD</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Gin<br>1/2oz Vodka<br>1/2oz Cointreau<br>3oz Sweet & Sour<br>1/2oz Chambord</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="GREEN EYES" data-glass="Long" data-ingredients="Vodka,Blue Curacao,Orange Juice,Lime Juice" data-flavours="Fruity, Sour">
+                <h2>GREEN EYES</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1oz Blue Curacao<br>3oz Orange Juice<br>Dash Lime Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="GREMLIN" data-glass="Long" data-ingredients="Midori,Sweet & Sour,Chambord,Vodka" data-flavours="Sour">
+                <h2>GREMLIN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Midori<br>3oz Sweet & Sour<br>3/4oz Chambord<br>3/4oz Vodka</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="HAIRY NAVEL" data-glass="Long" data-ingredients="Vodka,Peach Schnapps,Orange Juice" data-flavours="Fruity">
+                <h2>HAIRY NAVEL</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1oz Peach Schnapps<br>3oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="HIDDEN BERRY HIGHBALL" data-glass="Long" data-ingredients="Blue Raspberry Vodka,Blueberry Liqueur,Strawberry Liqueur,Rum,Lemon Juice,Fill With Lemonade" data-flavours="Fruity, Sour, Sweet">
+                <h2>HIDDEN BERRY HIGHBALL</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Blue Raspberry Vodka<br>3/4oz Blueberry Liqueur<br>3/4oz Strawberry Liqueur<br>1/2oz Rum<br>1/2oz Lemon Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="HINKY DINK" data-glass="Short" data-ingredients="Rum,Cointreau,Lime Juice,Simple Syrup,Amaretto" data-flavours="Sour, Nutty, Sweet">
+                <h2>HINKY DINK</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Rum<br>3/4oz Cointreau<br>1/2oz Lime Juice<br>1/2oz Simple Syrup<br>1/2oz Amaretto</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="HOT IRISH CHOCOLATE" data-glass="Mug" data-ingredients="Baileys,Jack Daniels,Hot Chocolate" data-flavours="Creamy, Spiced, Sweet">
+                <h2>HOT IRISH CHOCOLATE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Baileys<br>3/4oz Jack Daniels<br>Hot Chocolate</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="HURRICANE" data-glass="Long" data-ingredients="Rum,Passion Fruit Juice,Sweet & Sour,Grenadine,Lime Juice,Orange Juice" data-flavours="Fruity, Sour, Sweet">
+                <h2>HURRICANE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>2oz Passion Fruit Juice<br>2oz Sweet & Sour<br>1/2oz Grenadine<br>Dash Lime Juice<br>1oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="IRISH COFFEE" data-glass="Mug" data-ingredients="Jack Daniels,3 Bar Spoons Of White Sugar,Coffee" data-flavours="Coffee, Spiced, Sweet">
+                <h2>IRISH COFFEE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Jack Daniels<br>3 Bar Spoons of White Sugar<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="JAMAICAN COFFEE" data-glass="Mug" data-ingredients="Kahlua,1 Bar Spoon Of White Sugar,Coffee" data-flavours="Coffee, Sweet">
+                <h2>JAMAICAN COFFEE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Kahlua<br>1 Bar Spoon of White Sugar<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="JAPANESE SLIPPER" data-glass="Short" data-ingredients="Cointreau,Midori,Lemon Juice,Lime Squeeze" data-flavours="Sour">
+                <h2>JAPANESE SLIPPER</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Cointreau<br>3/4oz Midori<br>1oz Lemon Juice<br>Dash Lime Squeeze</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="JOAN COLLINS" data-glass="Long" data-ingredients="Vodka,Sweet & Sour,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>JOAN COLLINS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>3oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="JOHN COLLINS" data-glass="Long" data-ingredients="Bourbon,Sweet & Sour,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>JOHN COLLINS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Bourbon<br>3oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="JONNY-OH" data-glass="Short" data-ingredients="Spiced Rum,Rum,Cointreau,1 Bar Spoon Brown Sugar" data-flavours="Spiced, Sweet">
+                <h2>JONNY-OH</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Spiced Rum<br>3/4oz Rum<br>1/2oz Cointreau<br>1 Bar Spoon Brown Sugar</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="JUNE BUG" data-glass="Long" data-ingredients="Midori,Malibu,Banana Liqueur,Sweet & Sour,Pineapple Juice" data-flavours="Fruity, Sour">
+                <h2>JUNE BUG</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Midori<br>1/2oz Malibu<br>1/2oz Banana Liqueur<br>1 1/2oz Sweet & Sour<br>1 1/2oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="KAHLUA COFFEE" data-glass="Long" data-ingredients="Kahlua,1 Bar Spoon Of White Sugar,Coffee" data-flavours="Coffee, Sweet">
+                <h2>KAHLUA COFFEE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Kahlua<br>1 Bar Spoon of White Sugar<br>Coffee</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="KEEN GREEN BEAN" data-glass="Long" data-ingredients="Apple Schnapps,Midori,Vodka,Lime Juice,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>KEEN GREEN BEAN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Apple Schnapps<br>1oz Midori<br>1oz Vodka<br>Dash Lime Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="KEOKE COFFEE" data-glass="Mug" data-ingredients="Brandy,White Cacao,Kahlua,Coffee" data-flavours="Coffee, Creamy">
+                <h2>KEOKE COFFEE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Brandy<br>1/2oz White Cacao<br>1/2oz Kahlua<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="KEY WEST COOLER" data-glass="Long" data-ingredients="Vodka,Peach Schnapps,Malibu,Midori,Cranberry Juice,Orange Juice" data-flavours="Fruity">
+                <h2>KEY WEST COOLER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Vodka<br>1/2oz Peach Schnapps<br>1/2oz Malibu<br>1/2oz Midori<br>1 1/2oz Cranberry Juice<br>1 1/2oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="KING ALPHONSE" data-glass="Short" data-ingredients="White Cacao,Milk" data-flavours="Creamy">
+                <h2>KING ALPHONSE</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz White Cacao<br>1oz Milk</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="KOOLAID" data-glass="Long" data-ingredients="Midori,Amaretto,Orange Juice,Cranberry Juice" data-flavours="Fruity, Nutty">
+                <h2>KOOLAID</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Midori<br>1/2oz Amaretto<br>1 1/2oz Orange Juice<br>1 1/2oz Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="KRAKEN KRAMBLE" data-glass="Short" data-ingredients="Spiced Rum,Chambord,Lemon Juice" data-flavours="Sour, Spiced">
+                <h2>KRAKEN KRAMBLE</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 3/4oz Spiced Rum<br>1/2oz Chambord<br>1/4oz Lemon Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="KRAKEN PARTY" data-glass="Long" data-ingredients="Spiced Rum,Apple Schnapps,Orange Juice,Pineapple Juice,Grenadine,Angostura Bitters" data-flavours="Fruity, Spiced, Sweet">
+                <h2>KRAKEN PARTY</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Spiced Rum<br>1oz Apple Schnapps<br>1oz Orange Juice<br>1oz Pineapple Juice<br>1/2oz Grenadine<br>Dash Angostura Bitters</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="LAIDBACK LIMEADE" data-glass="Long" data-ingredients="Jack Daniels,Cointreau,Lime Mix,Simple Syrup,Fill With Lemonade" data-flavours="Sweet, Sour, Spiced">
+                <h2>LAIDBACK LIMEADE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Jack Daniels<br>3/4oz Cointreau<br>1/2oz Lime Mix<br>1/2oz Simple Syrup<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="LIGHTS OF HAVANA" data-glass="Long" data-ingredients="Malibu,Midori,Orange Juice,Pineapple Juice,Lime Juice,Lemonade" data-flavours="Fruity, Sour, Sweet">
+                <h2>LIGHTS OF HAVANA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Malibu<br>3/4oz Midori<br>1 1/2oz Orange Juice<br>1 1/2oz Pineapple Juice<br>Dash Lime Juice<br>1oz Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="LIME DAIQUIRI ROCKS" data-glass="Short" data-ingredients="Rum,Lime Mix,Simple Syrup" data-flavours="Sour, Sweet">
+                <h2>LIME DAIQUIRI ROCKS</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>3oz Lime Mix<br>1oz Simple Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="LONG BEACH ICED TEA" data-glass="Long" data-ingredients="Rum,Gin,Vodka,Cointreau,Sweet & Sour,Fill With Cranberry Juice" data-flavours="Fruity, Sour">
+                <h2>LONG BEACH ICED TEA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Gin<br>1/2oz Vodka<br>1/2oz Cointreau<br>2oz Sweet & Sour<br>Fill With Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="LONG BERRY" data-glass="Long" data-ingredients="Vodka,Raspberry Liqueur,Blueberry Liqueur,Cranberry Juice" data-flavours="Fruity">
+                <h2>LONG BERRY</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Vodka<br>1/2oz Raspberry Liqueur<br>1/2oz Blueberry Liqueur<br>3oz Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="LONG ISLAND ICED TEA" data-glass="Long" data-ingredients="Rum,Gin,Vodka,Cointreau,Sweet & Sour,Fill With Coke" data-flavours="Sour">
+                <h2>LONG ISLAND ICED TEA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Gin<br>1/2oz Vodka<br>1/2oz Cointreau<br>2oz Sweet & Sour<br>Fill With Coke</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="LUCKY TACO" data-glass="Long" data-ingredients="Tequila,Apple Schnapps,Lime Mix,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>LUCKY TACO</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Tequila<br>1 1/2oz Apple Schnapps<br>1oz Lime Mix<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="LYNCHBURG LEMONADE" data-glass="Long" data-ingredients="Jack Daniels,Cointreau,Sweet & Sour,Fill With Lemonade" data-flavours="Sour, Spiced, Sweet">
+                <h2>LYNCHBURG LEMONADE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Jack Daniels<br>3/4oz Cointreau<br>3/4oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MADRAS" data-glass="Long" data-ingredients="Vodka,Cranberry Juice,Orange Juice" data-flavours="Fruity">
+                <h2>MADRAS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>3oz Cranberry Juice<br>1oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MAI TAI" data-glass="Long" data-ingredients="Rum,Cointreau,Lime Mix,Pineapple Juice,Grenadine,Simple Syrup,Amaretto" data-flavours="Fruity, Sweet, Sour">
+                <h2>MAI TAI</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Rum<br>3/4oz Cointreau<br>1 1/2oz Lime Mix<br>1 1/2oz Pineapple Juice<br>1/2oz Grenadine<br>1/2oz Simple Syrup<br>Dash Amaretto</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MARGARITA COOLER" data-glass="Long" data-ingredients="Tequila,Cointreau,Amaretto,Lime Mix,Fill With Lemonade" data-flavours="Sour, Nutty, Sweet">
+                <h2>MARGARITA COOLER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Tequila<br>1/2oz Cointreau<br>1/2oz Amaretto<br>1/4oz Lime Mix<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MARGARITA FROZEN" data-glass="Long" data-ingredients="Tequila,Cointreau,Lime Mix,Sweet & Sour" data-flavours="Sour">
+                <h2>MARGARITA FROZEN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Tequila<br>1/2oz Cointreau<br>1 1/2oz Lime Mix<br>1 1/2oz Sweet & Sour</p>
+                    <p><strong>Preparation:</strong> Blender, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MARGARITA ROCKS" data-glass="Long" data-ingredients="Tequila,Cointreau,Lime Mix,Sweet & Sour,Simple Syrup" data-flavours="Sour, Sweet">
+                <h2>MARGARITA ROCKS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Tequila<br>1/2oz Cointreau<br>3oz Lime Mix<br>2oz Sweet & Sour<br>1/2oz Simple Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MATT THE RAT" data-glass="Long" data-ingredients="Spiced Rum,Cointreau,Lime Mix,Simple Syrup,Orange Juice,Lemon Juice,Fill With Lemonade" data-flavours="Sour, Sweet, Fruity">
+                <h2>MATT THE RAT</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Spiced Rum<br>1/2oz Cointreau<br>1/2oz Lime Mix<br>1/2oz Simple Syrup<br>1oz Orange Juice<br>Dash Lemon Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MEXICAN COFFEE" data-glass="Mug" data-ingredients="1 Bar Spoon Of White Sugar,Kahlua,Tequila,Coffee" data-flavours="Coffee, Sweet">
+                <h2>MEXICAN COFFEE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1 Bar Spoon of White Sugar<br>3/4oz Kahlua<br>3/4oz Tequila<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MEXICAN RUNNER" data-glass="Long" data-ingredients="Strawberry Puree,Tequila,Rum,Blueberry Liqueur,Banana Liqueur,Sweet & Sour,Lime Mix,Grenadine" data-flavours="Fruity, Sour, Sweet">
+                <h2>MEXICAN RUNNER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Strawberry Puree<br>1/2oz Tequila<br>1/2oz Rum<br>1/2oz Blueberry Liqueur<br>1/2oz Banana Liqueur<br>1oz Sweet & Sour<br>1oz Lime Mix<br>1/2oz Grenadine</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ESPRESSO MARTINI" data-glass="Short" data-ingredients="Vanilla Vodka,Kahlua,Simple Syrup,Coffee" data-flavours="Coffee, Sweet">
+                <h2>ESPRESSO MARTINI</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>2oz Vanilla Vodka <br>1oz Kahlua <br>Dash Simple Syrup <br>1oz Coffee </p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MOCHA MARTINI" data-glass="Short" data-ingredients="Vodka,White Cacao,Chocolate Syrup,Milk,Coffee" data-flavours="Creamy, Sweet, Coffee">
+                <h2>MOCHA MARTINI</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>1/2oz White Cacao<br>1/2oz Chocolate Syrup<br>1/2oz Milk<br>1oz Coffee</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="MUDDY WATER" data-glass="Short" data-ingredients="Vodka,Kahlua,Baileys" data-flavours="Creamy, Coffee">
+                <h2>MUDDY WATER</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1oz Vodka<br>1/2oz Kahlua<br>1/2oz Baileys</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="NUREYEV" data-glass="Short" data-ingredients="Vodka,White Cacao" data-flavours="Creamy">
+                <h2>NUREYEV</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>3/4oz White Cacao</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ORANGE BLOSSOM" data-glass="Short" data-ingredients="Gin,Orange Juice" data-flavours="Fruity">
+                <h2>ORANGE BLOSSOM</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Gin<br>4oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ORANGE LOLLIPOP" data-glass="Long" data-ingredients="Amaretto,Southern Comfort,Orange Juice,Pineapple Juice" data-flavours="Fruity, Nutty">
+                <h2>ORANGE LOLLIPOP</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Amaretto<br>1/2oz Southern Comfort<br>3oz Orange Juice<br>1oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ORANGEADE" data-glass="Long" data-ingredients="Vodka,Simple Syrup,Orange Juice,Fill With Lemonade" data-flavours="Sweet, Fruity">
+                <h2>ORANGEADE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>3/4oz Simple Syrup<br>2 1/2oz Orange Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ORLANDO QUENCHER" data-glass="Long" data-ingredients="Rum,Lime Mix,Simple Syrup,Orange Juice,Lemon Juice,Fill With Lemonade" data-flavours="Sour, Sweet, Fruity">
+                <h2>ORLANDO QUENCHER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Lime Mix<br>1/2oz Simple Syrup<br>1oz Orange Juice<br>Dash Lemon Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="P.S.I LOVE YOU" data-glass="Long" data-ingredients="Baileys,Amaretto,Rum,Kahlua,Milk" data-flavours="Creamy, Coffee, Nutty">
+                <h2>P.S.I LOVE YOU</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Baileys<br>1/2oz Amaretto<br>1/2oz Rum<br>1/2oz Kahlua<br>3oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PARADISE PUNCH" data-glass="Long" data-ingredients="Southern Comfort,Lime Mix,Amaretto,Vodka,Pineapple Juice,Orange Juice,Grenadine" data-flavours="Fruity, Sour, Nutty">
+                <h2>PARADISE PUNCH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Southern Comfort<br>3/4oz Lime Mix<br>3/4oz Amaretto<br>1/2oz Vodka<br>1 1/4oz Pineapple Juice<br>1 1/4oz Orange Juice<br>3/4oz Grenadine</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PAVLOVA" data-glass="Short" data-ingredients="Vodka,White Cacao,Milk,Strawberry Liqueur,Raspberry Liqueur" data-flavours="Fruity, Creamy">
+                <h2>PAVLOVA</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>3/4oz White Cacao<br>1oz Milk<br>Dash Strawberry Liqueur<br>Dash Raspberry Liqueur</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PEACH CRUSH" data-glass="Long" data-ingredients="Peach Schnapps,Vodka,Sweet & Sour,Cranberry Juice" data-flavours="Fruity, Sour">
+                <h2>PEACH CRUSH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Peach Schnapps<br>1oz Vodka<br>1 1/2oz Sweet & Sour<br>1 1/2oz Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PEPPER EATER" data-glass="Long" data-ingredients="Tequila,Cointreau,Orange Juice,Lime Juice,Cranberry Juice" data-flavours="Fruity, Sour">
+                <h2>PEPPER EATER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Tequila<br>1oz Cointreau<br>2oz Orange Juice<br>Dash Lime Juice<br>1oz Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PERFECT JOHN" data-glass="Long" data-ingredients="Vodka,Cointreau,Orange Juice,Lime Juice" data-flavours="Fruity, Sour">
+                <h2>PERFECT JOHN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1oz Cointreau<br>3oz Orange Juice<br>1/4oz Lime Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PINA COLADA FROZEN" data-glass="Long" data-ingredients="Malibu,Pina Colada Mix" data-flavours="Sweet">
+                <h2>PINA COLADA FROZEN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Malibu<br>5oz Pina Colada Mix</p>
+                    <p><strong>Preparation:</strong> Blender, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PINA COLADA ROCKS" data-glass="Long" data-ingredients="Malibu,Pina Colada Mix" data-flavours="Sweet">
+                <h2>PINA COLADA ROCKS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Malibu<br>4oz Pina Colada Mix</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PINEAPPLE PLANTATION" data-glass="Long" data-ingredients="Amaretto,Southern Comfort,Pineapple Juice,Fill With Sweet & Sour" data-flavours="Fruity, Sour, Nutty">
+                <h2>PINEAPPLE PLANTATION</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Amaretto<br>1oz Southern Comfort<br>3oz Pineapple Juice<br>Fill With Sweet & Sour</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PINK LEMONADE" data-glass="Long" data-ingredients="Vodka,Cranberry Juice,Sweet & Sour,Fill With Lemonade" data-flavours="Fruity, Sour, Sweet">
+                <h2>PINK LEMONADE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1 1/2oz Cranberry Juice<br>1 1/2oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PLANTER'S PUNCH" data-glass="Long" data-ingredients="Rum,Lime Mix,Simple Syrup,Grenadine,Orange Juice" data-flavours="Sweet, Fruity, Sour">
+                <h2>PLANTER'S PUNCH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Lime Mix<br>1/2oz Simple Syrup<br>1/2oz Grenadine<br>4oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PORNSTAR MARTINI" data-glass="Short" data-ingredients="Vanilla Vodka,Passoa,Pineapple Juice,Lime Juice,Of Grenadine,Simple Syrup" data-flavours="Sweet, Fruity, Sour">
+                <h2>PORNSTAR MARTINI</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vanilla Vodka<br>1oz Passoa<br>1/2oz Pineapple Juice<br>1/4oz Lime Juice<br>Dash of Grenadine<br>1/4oz Simple Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PURPLE RAIN" data-glass="Long" data-ingredients="Rum,Blue Curacao,Vodka,Chambord,Sweet & Sour,Grenadine" data-flavours="Sour, Sweet">
+                <h2>PURPLE RAIN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Blue Curacao<br>1/2oz Vodka<br>1/2oz Chambord<br>3 1/2oz Sweet & Sour<br>3/4oz Grenadine</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PUSHKIN" data-glass="Short" data-ingredients="Gin,Vodka,White Cacao" data-flavours="Creamy">
+                <h2>PUSHKIN</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Gin<br>3/4oz Vodka<br>3/4oz White Cacao</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="PUSSY CAT" data-glass="Long" data-ingredients="Bourbon,Sweet & Sour,Orange Juice,Grenadine" data-flavours="Fruity, Sour, Sweet">
+                <h2>PUSSY CAT</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Bourbon<br>1 1/2oz Sweet & Sour<br>1 1/2oz Orange Juice<br>Dash Grenadine</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="RASPBERRY FLOWER" data-glass="Long" data-ingredients="Vodka,Elderflower Cordial,Apple Juice,Cranberry Juice,Raspberry Liqueur" data-flavours="Fruity, Floral">
+                <h2>RASPBERRY FLOWER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Floral">Floral</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Vodka<br>1/2oz Elderflower Cordial<br>2oz Apple Juice<br>2oz Cranberry Juice<br>1/2oz Raspberry Liqueur</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="RASPBERRY WATKINS" data-glass="Long" data-ingredients="Vodka,Chambord,Lime Mix,Grenadine,Fill With Lemonade" data-flavours="Sweet, Sour">
+                <h2>RASPBERRY WATKINS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1oz Chambord<br>1/4oz Lime Mix<br>Dash Grenadine<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="RED LION COCKTAIL" data-glass="Short" data-ingredients="Gin,Cointreau,Lemon Juice,Orange Juice" data-flavours="Fruity, Sour">
+                <h2>RED LION COCKTAIL</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1oz Gin<br>1oz Cointreau<br>1/2oz Lemon Juice<br>1/2oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="RUM COOLER" data-glass="Long" data-ingredients="Rum,Pineapple Juice,Fill With Lemonade" data-flavours="Fruity, Sweet">
+                <h2>RUM COOLER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>2oz Pineapple Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="RUM RUNNER" data-glass="Long" data-ingredients="Blueberry Liqueur,Banana Liqueur,Rum,Grenadine,Sweet & Sour" data-flavours="Fruity, Sour, Sweet">
+                <h2>RUM RUNNER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Blueberry Liqueur<br>3/4oz Banana Liqueur<br>1oz Rum<br>1oz Grenadine<br>2oz Sweet & Sour</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SANDY MOAT" data-glass="Long" data-ingredients="Vodka,Midori,Cointreau,Simple Syrup,Apple Juice" data-flavours="Fruity, Sweet">
+                <h2>SANDY MOAT</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Vodka<br>1/2oz Midori<br>1/4oz Cointreau<br>1/2oz Simple Syrup<br>4oz Apple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SCARLETT O'HARA" data-glass="Short" data-ingredients="Southern Comfort,Cranberry Juice,Lime Mix" data-flavours="Fruity, Sour">
+                <h2>SCARLETT O'HARA</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Southern Comfort<br>1oz Cranberry Juice<br>1/2oz Lime Mix</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SCORPION" data-glass="Long" data-ingredients="Rum,Brandy,Orange Juice,Sweet & Sour,Amaretto" data-flavours="Fruity, Sour, Nutty">
+                <h2>SCORPION</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>3/4oz Brandy<br>2 1/2oz Orange Juice<br>2oz Sweet & Sour<br>1/2oz Amaretto</p>
+                    <p><strong>Preparation:</strong> Mixer, No Ice, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SCREAMING ORGASM" data-glass="Long" data-ingredients="Vodka,Kahlua,Amaretto,Baileys,Milk" data-flavours="Creamy, Coffee, Nutty">
+                <h2>SCREAMING ORGASM</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Vodka<br>1/2oz Kahlua<br>1/2oz Amaretto<br>1/2oz Baileys<br>3oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SCREWDRIVER" data-glass="Long" data-ingredients="Vodka,Orange Juice" data-flavours="Fruity">
+                <h2>SCREWDRIVER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>4oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SEX ON THE BEACH" data-glass="Long" data-ingredients="Vodka,Peach Schnapps,Cranberry Juice,Orange Juice,Lime Juice" data-flavours="Fruity, Sour">
+                <h2>SEX ON THE BEACH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Vodka<br>1oz Peach Schnapps<br>1 1/2oz Cranberry Juice<br>1 1/2oz Orange Juice<br>Dash Lime Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SICILIAN KISS" data-glass="Short" data-ingredients="Southern Comfort,Amaretto" data-flavours="Nutty">
+                <h2>SICILIAN KISS</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Southern Comfort<br>3/4oz Amaretto</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SIDE CAR" data-glass="Short" data-ingredients="Brandy,Cointreau,Lemon Juice" data-flavours="Sour">
+                <h2>SIDE CAR</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1oz Brandy<br>1oz Cointreau<br>1oz Lemon Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SINGAPORE SLING" data-glass="Long" data-ingredients="Gin,Cherry Brandy,Grenadine,Sweet & Sour,Fill With Lemonade" data-flavours="Sweet, Fruity, Sour">
+                <h2>SINGAPORE SLING</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Gin<br>1/2oz Cherry Brandy<br>1/2oz Grenadine<br>2oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SKY HIGH ELDERBERRY" data-glass="Long" data-ingredients="Vodka,Blueberry Liqueur,Elderflower Cordial,Simple Syrup,Lemon Juice,Apple Juice" data-flavours="Fruity, Sour, Floral">
+                <h2>SKY HIGH ELDERBERRY</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Floral">Floral</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1/2oz Blueberry Liqueur<br>1/2oz Elderflower Cordial<br>1/2oz Simple Syrup<br>3/4oz Lemon Juice<br>2oz Apple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SLIPPERY SEA MONSTER" data-glass="Short" data-ingredients="Spiced Rum,Cointreau,Lime Mix,Amaretto" data-flavours="Sour, Nutty, Spiced">
+                <h2>SLIPPERY SEA MONSTER</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>2oz Spiced Rum<br>1/2oz Cointreau<br>3/4oz Lime Mix<br>1/2oz Amaretto</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SMITH & KEARNS" data-glass="Short" data-ingredients="White Cacao,Milk,Fill With Lemonade" data-flavours="Creamy, Sweet">
+                <h2>SMITH & KEARNS</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz White Cacao<br>1oz Milk<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SOMBRERO" data-glass="Short" data-ingredients="Kahlua,Milk" data-flavours="Creamy, Coffee">
+                <h2>SOMBRERO</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Kahlua<br>1oz Milk</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SOUR APPLE" data-glass="Short" data-ingredients="Apple Schnapps,Sweet & Sour,Orange Juice,Angostura Bitters" data-flavours="Fruity, Sour, Spiced">
+                <h2>SOUR APPLE</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Apple Schnapps<br>2oz Sweet & Sour<br>1oz Orange Juice<br>Dash Angostura Bitters</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SPANISH COFFEE" data-glass="Mug" data-ingredients="1 Bar Spoon Of White Sugar,Brandy,Kahlua,Coffee" data-flavours="Coffee, Sweet">
+                <h2>SPANISH COFFEE</h2>
+                <p>
+                    <span class="glass-tag">Mug</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Mug</p>
+                    <p><strong>Ingredients:</strong><br>1 Bar Spoon of White Sugar<br>3/4oz Brandy<br>3/4oz Kahlua<br>Coffee</p>
+                    <p><strong>Preparation:</strong> </p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="STRAWBERRY CAIPIRINHA" data-glass="Short" data-ingredients="Strawberry Puree,3 Lime Wedges,3 Bar Spoons Of White Or Brown Sugar,Cachaca,Strawberry Liqueur" data-flavours="Fruity, Sweet">
+                <h2>STRAWBERRY CAIPIRINHA</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>2oz Strawberry Puree<br>3 Lime Wedges<br>3 Bar Spoons of White or Brown Sugar<br>1 1/2oz Cachaca<br>1oz Strawberry Liqueur</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="STRAWBERRY CAIPIROSKA" data-glass="Short" data-ingredients="Strawberry Puree,3 Lime Wedges,3 Bar Spoons Of White Or Brown Sugar,Vodka,Strawberry Liqueur" data-flavours="Fruity, Sweet">
+                <h2>STRAWBERRY CAIPIROSKA</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>2oz Strawberry Puree<br>3 Lime Wedges<br>3 Bar Spoons of White or Brown Sugar<br>1 1/2oz Vodka<br>1oz Strawberry Liqueur</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="STRAWBERRY DAIQUIRI FROZEN" data-glass="Long" data-ingredients="Strawberry Puree,Rum,Strawberry Liqueur,Lime Mix,Simple Syrup" data-flavours="Fruity, Sour, Sweet">
+                <h2>STRAWBERRY DAIQUIRI FROZEN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>2oz Strawberry Puree<br>1 1/4oz Rum<br>1/2oz Strawberry Liqueur<br>3/4oz Lime Mix<br>1oz Simple Syrup</p>
+                    <p><strong>Preparation:</strong> Blender, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="STRAWBERRY DAIQUIRI ROCKS" data-glass="Short" data-ingredients="Rum,Strawberry Liqueur,Strawberry Puree,Lime Mix,Simple Syrup" data-flavours="Fruity, Sour, Sweet">
+                <h2>STRAWBERRY DAIQUIRI ROCKS</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Strawberry Liqueur<br>2oz Strawberry Puree<br>1oz Lime Mix<br>1oz Simple Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="STRAWBERRY MARGARITA FROZEN" data-glass="Long" data-ingredients="Strawberry Puree,Tequila,Strawberry Liqueur,Lime Mix,Sweet & Sour" data-flavours="Sour, Fruity">
+                <h2>STRAWBERRY MARGARITA FROZEN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>2oz Strawberry Puree<br>1 1/4oz Tequila<br>1/2oz Strawberry Liqueur<br>1 1/2oz Lime Mix<br>1 1/2oz Sweet & Sour</p>
+                    <p><strong>Preparation:</strong> Blender, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="STRAWBERRY MARGARITA ROCKS" data-glass="Long" data-ingredients="Tequila,Strawberry Liqueur,Strawberry Puree,Lime Mix,Sweet & Sour,Simple Syrup" data-flavours="Sour, Fruity, Sweet">
+                <h2>STRAWBERRY MARGARITA ROCKS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Tequila<br>1/2oz Strawberry Liqueur<br>2oz Strawberry Puree<br>1 1/2oz Lime Mix<br>1 1/2oz Sweet & Sour<br>1/2oz Simple Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="STRAWBERRY SHORTCAKE" data-glass="Long" data-ingredients="Strawberry Puree,Amaretto,Vanilla Vodka,Milk" data-flavours="Fruity, Creamy, Nutty">
+                <h2>STRAWBERRY SHORTCAKE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>2oz Strawberry Puree<br>1 1/4oz Amaretto<br>1/2oz Vanilla Vodka<br>2oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="STRAWBERRY SPARKLE" data-glass="Long" data-ingredients="Orange Juice,Strawberry Liqueur,Fill With Lemonade" data-flavours="Fruity, Sweet">
+                <h2>STRAWBERRY SPARKLE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>2oz Orange Juice <br>1oz Strawberry Liqueur <br>Fill With Lemonade </p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SUNBURN" data-glass="Long" data-ingredients="Tequila,Cointreau,Cranberry Juice,Lime Juice" data-flavours="Fruity, Sour">
+                <h2>SUNBURN</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Tequila<br>1oz Cointreau<br>3oz Cranberry Juice<br>Dash Lime Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SUNSET BOULEVARD" data-glass="Long" data-ingredients="Chambord,Vodka,Midori,Cranberry Juice,Pineapple Juice" data-flavours="Fruity">
+                <h2>SUNSET BOULEVARD</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Chambord<br>3/4oz Vodka<br>3/4oz Midori<br>1 1/2oz Cranberry Juice<br>1 1/2oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="SWEET TART" data-glass="Long" data-ingredients="Blueberry Liqueur,Sweet & Sour,Fill With Lemonade" data-flavours="Fruity, Sour, Sweet">
+                <h2>SWEET TART</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Blueberry Liqueur<br>3oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TENNESSEE RUNWAY" data-glass="Long" data-ingredients="Jack Daniels,Vanilla Vodka,Apple Juice,Fill With Lemonade" data-flavours="Sweet, Fruity, Spiced">
+                <h2>TENNESSEE RUNWAY</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Jack Daniels<br>1/2oz Vanilla Vodka<br>1 1/2oz Apple Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TENNESSEE RUSH" data-glass="Long" data-ingredients="Jack Daniels,Cointreau,Cranberry Juice,Lime Juice,Simple Syrup" data-flavours="Fruity, Sour, Spiced">
+                <h2>TENNESSEE RUSH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Jack Daniels<br>1/2oz Cointreau<br>3oz Cranberry Juice<br>1/2oz Lime Juice<br>1/2oz Simple Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TENNESSEE TEA" data-glass="Long" data-ingredients="Rum,Jack Daniels,Vodka,Cointreau,Sweet & Sour,Fill With Coke" data-flavours="Sour, Spiced">
+                <h2>TENNESSEE TEA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Jack Daniels<br>1/2oz Vodka<br>1/2oz Cointreau<br>2oz Sweet & Sour<br>Fill With Coke</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TEQUILA SUNRISE" data-glass="Long" data-ingredients="Tequila,Orange Juice,Grenadine" data-flavours="Fruity, Sweet">
+                <h2>TEQUILA SUNRISE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Tequila<br>5oz Orange Juice<br>1/2oz Grenadine</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TEXAS ICED TEA" data-glass="Long" data-ingredients="Rum,Tequila,Vodka,Cointreau,Sweet & Sour,Fill With Coke" data-flavours="Sour">
+                <h2>TEXAS ICED TEA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Tequila<br>1/2oz Vodka<br>1/2oz Cointreau<br>2oz Sweet & Sour<br>Fill With Coke</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TOASTED ALMOND" data-glass="Short" data-ingredients="Amaretto,Kahlua,Milk" data-flavours="Creamy, Coffee, Nutty">
+                <h2>TOASTED ALMOND</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Amaretto<br>3/4oz Kahlua<br>1oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TOKYO ICED TEA" data-glass="Long" data-ingredients="Rum,Midori,Cointreau,Vodka,Sweet & Sour,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>TOKYO ICED TEA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1/2oz Rum<br>1/2oz Midori<br>1/2oz Cointreau<br>1/2oz Vodka<br>2oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TOM COLLINS" data-glass="Long" data-ingredients="Gin,Sweet & Sour,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>TOM COLLINS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Gin<br>3oz Sweet & Sour<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TROPICAL BLEND" data-glass="Long" data-ingredients="Midori,Banana Liqueur,Pina Colada Mix" data-flavours="Fruity, Sweet">
+                <h2>TROPICAL BLEND</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Midori<br>1oz Banana Liqueur<br>3oz Pina Colada Mix</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TROPICAL BLUE RASPBERRY COOLER" data-glass="Long" data-ingredients="Blue Raspberry Vodka,Pineapple Juice,Cointreau,Malibu" data-flavours="Fruity">
+                <h2>TROPICAL BLUE RASPBERRY COOLER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>2oz Blue Raspberry Vodka<br>2oz Pineapple Juice<br>3/4oz Cointreau<br>1/2oz Malibu</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TURQUOISE BLUE" data-glass="Long" data-ingredients="Rum,Cointreau,Blue Curacao,Sweet & Sour,Pineapple Juice" data-flavours="Fruity, Sour">
+                <h2>TURQUOISE BLUE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Cointreau<br>1/2oz Blue Curacao<br>1oz Sweet & Sour<br>1 1/2oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="TVR" data-glass="Long" data-ingredients="Vodka,Tequila,Lime Juice,Fill With Lemonade" data-flavours="Sour, Sweet">
+                <h2>TVR</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>1oz Tequila<br>Dash Lime Juice<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="UNCLE BULGARIA" data-glass="Long" data-ingredients="Vodka,Blueberry Liqueur,Sweet & Sour,Lime Juice" data-flavours="Sour, Fruity">
+                <h2>UNCLE BULGARIA</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>3/4oz Blueberry Liqueur<br>3oz Sweet & Sour<br>Dash Lime Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="VELVET HAMMER" data-glass="Short" data-ingredients="Cointreau,White Cacao,Grenadine,Milk" data-flavours="Creamy, Sweet">
+                <h2>VELVET HAMMER</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Cointreau<br>3/4oz White Cacao<br>Dash Grenadine<br>3oz Milk</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="VERY MERRY CHERRY" data-glass="Long" data-ingredients="Vodka,Cherry Syrup,Lime Juice,Cointreau" data-flavours="Fruity, Sour, Sweet">
+                <h2>VERY MERRY CHERRY</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3oz Vodka<br>1oz Cherry Syrup<br>1/2oz Lime Juice<br>1oz Cointreau</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="VICTORIA'S SECRET" data-glass="Short" data-ingredients="Vodka,Strawberry Liqueur,Lemon Juice" data-flavours="Fruity, Sour">
+                <h2>VICTORIA'S SECRET</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka <br>1oz Strawberry Liqueur <br>1/2oz Lemon Juice </p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="VODKA PUNCH" data-glass="Long" data-ingredients="Vodka,Orange Juice,Grenadine,Fill With Lemonade" data-flavours="Sweet, Fruity">
+                <h2>VODKA PUNCH</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Vodka<br>2oz Orange Juice<br>Dash Grenadine<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WALK IN THE TROPICS" data-glass="Long" data-ingredients="Malibu,Rum,Amaretto,Lime Mix,Simple Syrup,Grenadine,Orange Juice,Pineapple Juice" data-flavours="Fruity, Sweet, Sour">
+                <h2>WALK IN THE TROPICS</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>3/4oz Malibu<br>3/4oz Rum<br>3/4oz Amaretto<br>3/4oz Lime Mix<br>1/2oz Simple Syrup<br>1/4oz Grenadine<br>1 1/2oz Orange Juice<br>1 1/2oz Pineapple Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WARD EIGHT" data-glass="Short" data-ingredients="Bourbon,Sweet & Sour,Grenadine" data-flavours="Sour, Sweet">
+                <h2>WARD EIGHT</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Bourbon<br>2oz Sweet & Sour<br>Dash Grenadine</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WASHINGTON APPLE" data-glass="Short" data-ingredients="Jack Daniels,Apple Schnapps,Cranberry Juice" data-flavours="Fruity, Spiced">
+                <h2>WASHINGTON APPLE</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1oz Jack Daniels<br>1oz Apple Schnapps<br>1oz Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WATERLOO SUNSET" data-glass="Long" data-ingredients="Gin,Elderflower Cordial,Raspberry Liqueur,Fill With Lemonade" data-flavours="Fruity, Floral, Sweet">
+                <h2>WATERLOO SUNSET</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Floral">Floral</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>2oz Gin<br>1oz Elderflower Cordial<br>1/2oz Raspberry Liqueur<br>Fill With Lemonade</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WATERMELON COOLER" data-glass="Long" data-ingredients="Rum,Midori,Cranberry Juice,Orange Juice" data-flavours="Fruity">
+                <h2>WATERMELON COOLER</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1oz Midori<br>1 1/2oz Cranberry Juice<br>1 1/2oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WEST INDIES YELLOWBIRD" data-glass="Long" data-ingredients="Rum,Banana Liqueur,Vanilla Vodka,Pineapple Juice,Orange Juice" data-flavours="Fruity, Sweet">
+                <h2>WEST INDIES YELLOWBIRD</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Rum<br>1/2oz Banana Liqueur<br>1/2oz Vanilla Vodka<br>1 1/2oz Pineapple Juice<br>1 1/2oz Orange Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WHISKEY SOURS" data-glass="Short" data-ingredients="Jack Daniels,Sweet & Sour,Orange Juice,Angostura Bitters" data-flavours="Spiced, Fruity, Sour">
+                <h2>WHISKEY SOURS</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Spiced">Spiced</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/4oz Jack Daniels<br>2oz Sweet & Sour<br>1oz Orange Juice<br>Dash Angostura Bitters</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WHITE CHOCOLATE MARTINI" data-glass="Short" data-ingredients="Vanilla Vodka,White Cacao,Baileys,Milk,Simple Syrup" data-flavours="Creamy, Sweet">
+                <h2>WHITE CHOCOLATE MARTINI</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Sweet">Sweet</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vanilla Vodka<br>1/2oz White Cacao<br>1/4oz Baileys<br>1oz Milk<br>1/4oz Simple Syrup</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WHITE RUSSIAN" data-glass="Short" data-ingredients="Vodka,Kahlua,Milk" data-flavours="Creamy, Coffee">
+                <h2>WHITE RUSSIAN</h2>
+                <p>
+                    <span class="glass-tag">Short</span>
+                    
+                        <span class="flavour-tag Creamy">Creamy</span>
+                    
+                        <span class="flavour-tag Coffee">Coffee</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Short</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Vodka<br>3/4oz Kahlua<br>1oz Milk</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WONDERLAND COMFORT" data-glass="Long" data-ingredients="Southern Comfort,Passion Fruit Juice,Apple Juice,Sweet & Sour,Raspberry Liqueur,Lemon Juice,Cranberry Juice" data-flavours="Fruity, Sour">
+                <h2>WONDERLAND COMFORT</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Southern Comfort<br>1oz Passion Fruit Juice<br>1oz Apple Juice<br>1oz Sweet & Sour<br>1/4oz Raspberry Liqueur<br>1/4oz Lemon Juice<br>1oz Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="WOO WOO" data-glass="Long" data-ingredients="Peach Schnapps,Vodka,Cranberry Juice" data-flavours="Fruity">
+                <h2>WOO WOO</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1oz Peach Schnapps<br>1oz Vodka<br>3oz Cranberry Juice</p>
+                    <p><strong>Preparation:</strong> Build, With Ice</p>
+                </div>
+            </div>
+            
+            <div class="cocktail" onclick="toggleDetails(this)" data-name="ZOMBIE" data-glass="Long" data-ingredients="Rum,Cointreau,Orange Juice,Pineapple Juice,Lemon Juice,Amaretto" data-flavours="Fruity, Sour, Nutty">
+                <h2>ZOMBIE</h2>
+                <p>
+                    <span class="glass-tag">Long</span>
+                    
+                        <span class="flavour-tag Fruity">Fruity</span>
+                    
+                        <span class="flavour-tag Sour">Sour</span>
+                    
+                        <span class="flavour-tag Nutty">Nutty</span>
+                    
+                </p>
+                <div class="details">
+                    <p><strong>Glass:</strong> Long</p>
+                    <p><strong>Ingredients:</strong><br>1 1/2oz Rum<br>1/2oz Cointreau<br>1 1/4oz Orange Juice<br>1 1/4oz Pineapple Juice<br>1/2oz Lemon Juice<br>Dash Amaretto</p>
+                    <p><strong>Preparation:</strong> Mixer, With Ice</p>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    <script>
+        
+    function filterCocktails() {
+        var searchInput = document.getElementById('ingredientSearch').value.toLowerCase();
+        var ingredientOptions = document.getElementById('ingredientFilter').options;
+        for (let i = 0; i < ingredientOptions.length; i++) {
+            let opt = ingredientOptions[i];
+            opt.style.display = opt.value.toLowerCase().includes(searchInput) ? '' : 'none';
+        }
+    
+            var search = document.getElementById('searchInput').value.toLowerCase();
+            
+    var selectedOptions = Array.from(document.getElementById('ingredientFilter').selectedOptions);
+    var ingredients = selectedOptions.map(opt => opt.value.toLowerCase());
+    
+            var flavour = document.getElementById('flavourFilter').value.toLowerCase();
+            var glass = document.getElementById('glassFilter').value.toLowerCase();
+            var cocktails = document.querySelectorAll('.cocktail');
+
+            cocktails.forEach(function(cocktail) {
+                var name = cocktail.getAttribute('data-name').toLowerCase();
+                var cocktailIngredients = cocktail.getAttribute('data-ingredients').toLowerCase();
+                var cocktailFlavours = cocktail.getAttribute('data-flavours').toLowerCase();
+                var cocktailGlass = cocktail.getAttribute('data-glass').toLowerCase();
+
+                var show = true;
+                if (search && !name.includes(search)) {
+                    show = false;
+                }
+                
+    if (ingredients.length > 0 && !ingredients.every(ing => cocktailIngredients.includes(ing))) {
+    
+                    show = false;
+                }
+                if (flavour && !cocktailFlavours.includes(flavour)) {
+                    show = false;
+                }
+                if (glass && cocktailGlass !== glass) {
+                    show = false;
+                }
+
+                cocktail.style.display = show ? 'block' : 'none';
+            });
+        }
+
+        function toggleDetails(element) {
+            var details = element.querySelector(".details");
+            details.style.display = details.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</body>
+</html>
