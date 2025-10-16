@@ -176,7 +176,8 @@
 <option value="Vanilla Vodka">Vanilla Vodka</option>
 <option value="Vodka">Vodka</option>
 <option value="White Cacao">White Cacao</option>
-</select>
+<option value="Whiskey">Whiskey</option>
+<option value="raspberry">Raspberry</option><option value="coconut">Coconut</option><option value="passionfruit">Passionfruit</option><option value="citrus">Citrus</option></select>
 <label for="flavourFilter" style="font-weight:bold; color:#27ae60;">Filter by Flavour Profile:</label>
 <select id="flavourFilter" onchange="filterCocktails()">
 <option value="">--Select Flavour--</option>
@@ -1657,6 +1658,18 @@
 <p><strong>Preparation:</strong> Build, With Ice</p>
 </div>
 </div>
+<div class="cocktail" data-flavours="Spiced" data-glass="Short" data-ingredients="Whiskey,Simple Syrup,Cherry Syrup,Cointreau,Angostura Bitters" data-name="OLD FASHIONED" onclick="toggleDetails(this)">
+<h2>OLD FASHIONED</h2>
+<p>
+<span class="glass-tag">Short</span>
+<span class="flavour-tag Spiced">Spiced</span>
+</p>
+<div class="details">
+<p><strong>Glass:</strong> Short</p>
+<p><strong>Ingredients:</strong><br/>2oz Whiskey<br/>1/2oz Simple Syrup<br/>1/2oz Cherry Syrup<br/>1/2oz Cointreau<br/>2 Dashes Angostura Bitters</p>
+<p><strong>Preparation:</strong> Build, With Ice</p>
+</div>
+</div>
 <div class="cocktail" data-flavours="Fruity" data-glass="Short" data-ingredients="Gin,Orange Juice" data-name="ORANGE BLOSSOM" onclick="toggleDetails(this)">
 <h2>ORANGE BLOSSOM</h2>
 <p>
@@ -2611,7 +2624,7 @@
 <p><strong>Preparation:</strong> Mixer, With Ice</p>
 </div>
 </div>
-<div class="cocktail" data-flavours="Spiced, Fruity, Sour" data-glass="Short" data-ingredients="Jack Daniels,Sweet &amp; Sour,Orange Juice,Angostura Bitters" data-name="WHISKEY SOURS" onclick="toggleDetails(this)">
+<div class="cocktail" data-flavours="Spiced, Fruity, Sour" data-glass="Short" data-ingredients="Whikey,Sweet &amp; Sour,Orange Juice,Angostura Bitters" data-name="WHISKEY SOURS" onclick="toggleDetails(this)">
 <h2>WHISKEY SOURS</h2>
 <p>
 <span class="glass-tag">Short</span>
@@ -2621,7 +2634,7 @@
 </p>
 <div class="details">
 <p><strong>Glass:</strong> Short</p>
-<p><strong>Ingredients:</strong><br/>1 1/4oz Jack Daniels<br/>2oz Sweet &amp; Sour<br/>1oz Orange Juice<br/>Dash Angostura Bitters</p>
+<p><strong>Ingredients:</strong><br/>1 1/4oz Whiskey<br/>2oz Sweet &amp; Sour<br/>1oz Orange Juice<br/>Dash Angostura Bitters</p>
 <p><strong>Preparation:</strong> Mixer, With Ice</p>
 </div>
 </div>
@@ -2693,9 +2706,54 @@
 </main>
 
 <script>
+const ingredientAliases = {
+  // 🥃 Whiskey group (bidirectional)
+  "whiskey": ["whiskey", "bourbon", "jack daniels", "brandy", "southern comfort"],
+  "bourbon": ["whiskey", "bourbon", "jack daniels", "brandy", "southern comfort"],
+  "jack daniels": ["whiskey", "bourbon", "jack daniels", "brandy", "southern comfort"],
+  "brandy": ["whiskey", "bourbon", "jack daniels", "brandy", "southern comfort"],
+  "southern comfort": ["whiskey", "bourbon", "jack daniels", "brandy", "southern comfort"],
+
+  // 🍊 Orange liqueurs (bidirectional)
+  "cointreau": ["cointreau", "triple sec"],
+  "triple sec": ["cointreau", "triple sec"],
+
+  // 🍓 Raspberry group (asymmetric)
+  "raspberry": ["raspberry liqueur", "blue raspberry vodka", "chambord"],
+  "chambord": ["raspberry liqueur", "chambord"],
+
+  // 🥥 Coconut group (asymmetric)
+  "coconut": ["malibu", "pinacolada mix"],
+  "malibu": ["malibu", "pinacolada mix"],
+
+  // 🧡 Passionfruit group (parent-only)
+  "passionfruit": ["passoa", "passion fruit syrup", "passion fruit juice"],
+
+  // 🍋 Citrus group (parent-only)
+  "citrus": ["lemon juice", "lime juice", "sweet & sour"],
+
+  // 🍸 Vodka (parent-only)
+  "vodka": ["vodka", "vanilla vodka", "citrus vodka", "lemon vodka"],
+
+  // 🍹 Rum (parent-only)
+  "rum": ["rum", "white rum", "dark rum", "spiced rum", "overproof rum", "cachaca"]
+};
+
+
 function filterCocktails() {
     const search = document.getElementById("searchInput").value.toLowerCase().trim();
-    const ingredientSelections = Array.from(document.getElementById("ingredientFilter").selectedOptions).map(opt => opt.value.toLowerCase());
+    
+let ingredientSelections = Array.from(document.getElementById("ingredientFilter").selectedOptions)
+  .map(opt => opt.value.toLowerCase());
+
+let expandedSelections = new Set();
+ingredientSelections.forEach(sel => {
+  if (ingredientAliases[sel]) {
+    ingredientAliases[sel].forEach(alias => expandedSelections.add(alias));
+  } else {
+    expandedSelections.add(sel);
+  }
+});
     const flavour = document.getElementById("flavourFilter").value.toLowerCase();
     const glass = document.getElementById("glassFilter").value.toLowerCase();
     const cocktails = document.querySelectorAll(".cocktail");
@@ -2707,7 +2765,7 @@ function filterCocktails() {
         const glassType = cocktail.getAttribute("data-glass").toLowerCase();
 
         const matchesName = !search || name.includes(search);
-        const matchesIngredients = ingredientSelections.every(i => ingredients.includes(i));
+        const matchesIngredients = Array.from(expandedSelections).every(i => ingredients.includes(i));
         const matchesFlavour = !flavour || flavours.includes(flavour);
         const matchesGlass = !glass || glassType.includes(glass);
 
