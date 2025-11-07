@@ -120,7 +120,7 @@
 </header>
 <main>
 <label for="searchInput" style="font-weight:bold; color:#0a84ff;">Search by Name:</label>
-<input id="searchInput" onkeyup="filterCocktails()" placeholder="Type a cocktail name..." type="text"/>
+<input id="searchInput" type="text" oninput="filterCocktails()" placeholder="Search by name..." />
 <label for="glassFilter" style="font-weight:bold; color:#8e44ad;">Filter by Glass Type:</label>
 <select id="glassFilter" onchange="filterCocktails()">
 <option value="">--Select Glass--</option>
