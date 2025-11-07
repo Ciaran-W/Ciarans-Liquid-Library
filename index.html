@@ -2763,9 +2763,8 @@ ingredientSelections.forEach(sel => {
         const ingredients = cocktail.getAttribute("data-ingredients").toLowerCase();
         const flavours = cocktail.getAttribute("data-flavours").toLowerCase();
         const glassType = cocktail.getAttribute("data-glass").toLowerCase();
-
         const matchesName = !search || name.includes(search);
-        const ingredientList = ingredients.split(",").map(i => i.trim());
+        const ingredientList = ingredients.split(",").map(i => i.trim().toLowerCase());
         const matchesIngredients = Array.from(expandedSelections).every(i => ingredientList.includes(i));
         const matchesFlavour = !flavour || flavours.includes(flavour);
         const matchesGlass = !glass || glassType.includes(glass);
