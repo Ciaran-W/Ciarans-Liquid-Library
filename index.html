@@ -186,11 +186,15 @@
 <option value="Vodka">Vodka</option>
 <option value="White Cacao">White Cacao</option>
 <option value="Whiskey">Whiskey</option>
-<option value="raspberry">Raspberry</option>
-<option value="coconut">Coconut</option>
-<option value="passionfruit">Passionfruit</option>
-<option value="citrus">Citrus</option>
+function clearIngredientFilter() {
+  const ingredientFilter = document.getElementById("ingredientFilter");
+  ingredientFilter.selectedIndex = -1; // Deselect all
+  filterCocktails(); // Refresh results
+}
 </select>
+<button onclick="clearIngredientFilter()" style="margin-left:10px;">
+  Clear Ingredient Filter
+</button>
 <label for="flavourFilter" style="font-weight:bold; color:#27ae60;">Filter by Flavour Profile:</label>
 <select id="flavourFilter" onchange="filterCocktails()">
 <option value="">--Select Flavour--</option>
