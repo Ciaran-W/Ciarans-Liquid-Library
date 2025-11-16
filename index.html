@@ -2770,6 +2770,11 @@ ingredientSelections.forEach(sel => {
   } else {
     expandedSelections.add(sel);
   }
+  function clearIngredientFilter() {
+  const ingredientFilter = document.getElementById("ingredientFilter");
+  ingredientFilter.selectedIndex = -1;
+  filterCocktails();
+}
 });
     const flavour = document.getElementById("flavourFilter").value.toLowerCase();
     const glass = document.getElementById("glassFilter").value.toLowerCase();
