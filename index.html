@@ -2804,5 +2804,10 @@ function toggleDetails(element) {
         details.classList.add("show");
     }
 }
+function clearIngredientFilter() {
+  const ingredientFilter = document.getElementById("ingredientFilter");
+  ingredientFilter.selectedIndex = -1;
+  filterCocktails();
+}
 </script></body>
 </html>
