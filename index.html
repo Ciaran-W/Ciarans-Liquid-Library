@@ -186,11 +186,6 @@
 <option value="Vodka">Vodka</option>
 <option value="White Cacao">White Cacao</option>
 <option value="Whiskey">Whiskey</option>
-function clearIngredientFilter() {
-  const ingredientFilter = document.getElementById("ingredientFilter");
-  ingredientFilter.selectedIndex = -1; // Deselect all
-  filterCocktails(); // Refresh results
-}
 </select>
 <button onclick="clearIngredientFilter()" style="margin-left:10px;">
   Clear Ingredient Filter
