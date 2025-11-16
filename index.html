@@ -190,6 +190,7 @@
 <button onclick="clearIngredientFilter()" style="margin-left:10px;">
   Clear Ingredient Filter
 </button>
+<br><br>
 <label for="flavourFilter" style="font-weight:bold; color:#27ae60;">Filter by Flavour Profile:</label>
 <select id="flavourFilter" onchange="filterCocktails()">
 <option value="">--Select Flavour--</option>
@@ -201,6 +202,10 @@
 <option value="Spiced">Spiced</option>
 <option value="Sweet">Sweet</option>
 </select>
+<button onclick="resetAllFilters()" style="margin-top:10px;">
+  Reset All Filters
+</button>
+<br><br>
 <div id="cocktails">
 <div class="cocktail" data-flavours="Fruity, Sweet" data-glass="Long" data-ingredients="Rum,Gin,Vodka,Cointreau,Pineapple Juice,Grenadine,Fill With Lemonade" data-name="77 SUNSET STRIP" onclick="toggleDetails(this)">
 <h2>77 SUNSET STRIP</h2>
@@ -2811,6 +2816,14 @@ function toggleDetails(element) {
 function clearIngredientFilter() {
   const ingredientFilter = document.getElementById("ingredientFilter");
   ingredientFilter.selectedIndex = -1;
+  filterCocktails();
+}
+function resetAllFilters() {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("flavourFilter").selectedIndex = 0;
+  document.getElementById("glassFilter").selectedIndex = 0;
+  document.getElementById("baseSpiritFilter").selectedIndex = 0;
+  document.getElementById("ingredientFilter").selectedIndex = -1;
   filterCocktails();
 }
 </script></body>
