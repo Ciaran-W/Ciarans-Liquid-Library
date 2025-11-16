@@ -2786,7 +2786,11 @@ ingredientSelections.forEach(sel => {
         const matchesIngredients = Array.from(expandedSelections).every(i => ingredientList.includes(i));
         const matchesFlavour = !flavour || flavours.includes(flavour);
         const matchesGlass = !glass || glassType.includes(glass);
-        const matchesBase = !baseSpirit || ingredientList.includes(baseSpirit);
+        let baseMatches = [baseSpirit];
+if (ingredientAliases[baseSpirit]) {
+  baseMatches = ingredientAliases[baseSpirit];
+}
+const matchesBase = !baseSpirit || baseMatches.some(spirit => ingredientList.includes(spirit));
 
         cocktail.style.display = (matchesName && matchesIngredients && matchesFlavour && matchesGlass && matchesBase) ? "block" : "none";
     });
