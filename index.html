@@ -128,6 +128,16 @@
 <option value="Mug">Mug</option>
 <option value="Short">Short</option>
 </select>
+<label for="baseSpiritFilter" style="font-weight:bold; color:#e74c3c;">Filter by Base Spirit:</label>
+<select id="baseSpiritFilter" onchange="filterCocktails()">
+  <option value="">--Select Base Spirit--</option>
+  <option value="vodka">Vodka</option>
+  <option value="rum">Rum</option>
+  <option value="gin">Gin</option>
+  <option value="tequila">Tequila</option>
+  <option value="whiskey">Whiskey</option>
+  <option value="brandy">Brandy</option>
+</select>
 <label for="ingredientFilter" style="font-weight:bold; color:#e67e22;">Filter by Ingredient:</label>
 <select id="ingredientFilter" multiple="" onchange="filterCocktails()" size="5">
 <option value="">--Select Ingredient--</option>
@@ -2760,6 +2770,7 @@ ingredientSelections.forEach(sel => {
 });
     const flavour = document.getElementById("flavourFilter").value.toLowerCase();
     const glass = document.getElementById("glassFilter").value.toLowerCase();
+    const baseSpirit = document.getElementById("baseSpiritFilter").value.toLowerCase();
     const cocktails = document.querySelectorAll(".cocktail");
 
     cocktails.forEach(cocktail => {
@@ -2772,8 +2783,10 @@ ingredientSelections.forEach(sel => {
         const matchesIngredients = Array.from(expandedSelections).every(i => ingredientList.includes(i));
         const matchesFlavour = !flavour || flavours.includes(flavour);
         const matchesGlass = !glass || glassType.includes(glass);
+        const matchesBase = !baseSpirit || ingredientList.includes(baseSpirit);
 
         cocktail.style.display = (matchesName && matchesIngredients && matchesFlavour && matchesGlass) ? "block" : "none";
+        cocktail.style.display = (matchesName && matchesIngredients && matchesFlavour && matchesGlass && matchesBase) ? "block" : "none";
     });
 }
 
